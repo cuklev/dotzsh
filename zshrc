@@ -171,6 +171,7 @@ alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
 alias l='ls -lAh'
+alias duh='du -h --max-depth=1'
 alias dmesg='dmesg --color'
 alias md=mkdir
 alias -- -='cd -'
