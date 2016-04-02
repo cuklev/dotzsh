@@ -9,7 +9,7 @@ autoload -U compinit
 compinit
 
 autoload -U select-word-style
-select-word-style bash                      
+select-word-style bash
 
 PS1="%B%(!.%F{red}%m.%F{green}%n@%m) %F{blue}%1~ %F{blue}%(!.#.$)%f%b "
 PS2="%B %_ %F{blue}>%f%b "
@@ -136,20 +136,20 @@ unset key _mode
 function zle-line-init {
 	exc=$?
 	if (($exc == 0)); then
-		RPS1="%B%F{yellow}^_^ %F{green}OK%b"
+		RPS1="%B%F{yellow}^_^ %F{green}OK%f%b"
 	elif (($exc == 1)); then
-		RPS1="%B%F{red}error %F{magenta}1%b"
+		RPS1="%B%F{red}error %F{magenta}1%f%b"
 	elif (($exc == 2)); then
-		RPS1="%B%F{red}error %F{magenta}2%b"
+		RPS1="%B%F{red}error %F{magenta}2%f%b"
 	elif (($exc == 124)); then
-		RPS1="%B%F{yellow}timeouted%b%f"
+		RPS1="%B%F{yellow}timeouted%f%b"
 	elif (($exc == 126)); then
-		RPS1="%B%F{yellow}denied%b%f"
+		RPS1="%B%F{yellow}denied%f%b"
 	elif (($exc == 127)); then
-		RPS1="%B%F{yellow}not found%b%f"
+		RPS1="%B%F{yellow}not found%f%b"
 	elif (($exc > 127 && $exc < 162)); then
 		RPS1="%B%F{red}SIG${signals[$((exc-128))]}%f%b"
-	else RPS1="%B%F{red}exit %F{magenta}%?%b%f"
+	else RPS1="%B%F{red}exit %F{magenta}%?%f%b"
 	fi
 	zle reset-prompt
 }
@@ -161,7 +161,6 @@ function zle-keymap-select {
 	RPS2=$RPS1
 	zle reset-prompt
 }
-RPS1=""
 zle -N zle-line-init
 zle -N zle-keymap-select
 
