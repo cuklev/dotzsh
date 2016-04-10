@@ -98,31 +98,27 @@ key[CtrlLeftTmux]="^[OD"
 key[AltBackspace]="^[^?"
 key[ShiftTab]="^[[Z"
 
-bindkey -v
+bindkey "${key[Up]}"            up-line-or-history
+bindkey "${key[Down]}"          down-line-or-history
+bindkey "${key[Left]}"          backward-char
+bindkey "${key[Right]}"         forward-char
+bindkey "${key[Delete]}"        delete-char
+bindkey "${key[Insert]}"        overwrite-mode
+bindkey "${key[Home]}"          beginning-of-line
+bindkey "${key[End]}"           end-of-line
+bindkey "${key[PageUp]}"        history-beginning-search-backward
+bindkey "${key[PageDown]}"      history-beginning-search-forward
+bindkey "${key[CtrlRight]}"     forward-word
+bindkey "${key[CtrlLeft]}"      backward-word
+bindkey "${key[AltRight]}"      forward-word
+bindkey "${key[AltLeft]}"       backward-word
 
-for _mode in vi{ins,cmd}; do
-	bindkey -M $_mode "${key[Up]}"            up-line-or-history
-	bindkey -M $_mode "${key[Down]}"          down-line-or-history
-	bindkey -M $_mode "${key[Left]}"          backward-char
-	bindkey -M $_mode "${key[Right]}"         forward-char
-	bindkey -M $_mode "${key[Delete]}"        delete-char
-	bindkey -M $_mode "${key[Insert]}"        overwrite-mode
-	bindkey -M $_mode "${key[Home]}"          beginning-of-line
-	bindkey -M $_mode "${key[End]}"           end-of-line
-	bindkey -M $_mode "${key[PageUp]}"        history-beginning-search-backward
-	bindkey -M $_mode "${key[PageDown]}"      history-beginning-search-forward
-	bindkey -M $_mode "${key[CtrlRight]}"     forward-word
-	bindkey -M $_mode "${key[CtrlLeft]}"      backward-word
-	bindkey -M $_mode "${key[AltRight]}"      forward-word
-	bindkey -M $_mode "${key[AltLeft]}"       backward-word
-#
-	bindkey -M $_mode "${key[CtrlRightTmux]}" forward-word
-	bindkey -M $_mode "${key[CtrlLeftTmux]}"  backward-word
-	bindkey -M $_mode "${key[HomeTmux]}"      beginning-of-line
-	bindkey -M $_mode "${key[EndTmux]}"       end-of-line
-#
-	bindkey -M $_mode "${key[AltBackspace]}"  backward-kill-word
-done
+bindkey "${key[CtrlRightTmux]}" forward-word
+bindkey "${key[CtrlLeftTmux]}"  backward-word
+bindkey "${key[HomeTmux]}"      beginning-of-line
+bindkey "${key[EndTmux]}"       end-of-line
+
+bindkey "${key[AltBackspace]}"  backward-kill-word
 
 zmodload zsh/complist
 bindkey -M menuselect "${key[ShiftTab]}" reverse-menu-complete
@@ -131,38 +127,6 @@ bindkey -M menuselect "${key[Home]}" emacs-editing-mode
 bindkey -M menuselect "${key[End]}" emacs-editing-mode
 bindkey -M menuselect "${key[HomeTmux]}" emacs-editing-mode
 bindkey -M menuselect "${key[EndTmux]}" emacs-editing-mode
-unset key _mode
-
-function zle-line-init {
-	exc=$?
-	if (($exc == 0)); then
-		RPS1="%B%F{yellow}^_^ %F{green}OK%f%b"
-	elif (($exc == 1)); then
-		RPS1="%B%F{red}error %F{magenta}1%f%b"
-	elif (($exc == 2)); then
-		RPS1="%B%F{red}error %F{magenta}2%f%b"
-	elif (($exc == 124)); then
-		RPS1="%B%F{yellow}timeouted%f%b"
-	elif (($exc == 126)); then
-		RPS1="%B%F{yellow}denied%f%b"
-	elif (($exc == 127)); then
-		RPS1="%B%F{yellow}not found%f%b"
-	elif (($exc > 127 && $exc < 162)); then
-		RPS1="%B%F{red}SIG${signals[$((exc-128))]}%f%b"
-	else RPS1="%B%F{red}exit %F{magenta}%?%f%b"
-	fi
-	zle reset-prompt
-}
-function zle-keymap-select {
-	case $KEYMAP in
-		vicmd) RPS1="%B%F{cyan}-- CMD --%f%b ";;
-		viins|main) RPS1="";;
-	esac
-	RPS2=$RPS1
-	zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 
 alias ls='ls --color=auto'
