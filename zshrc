@@ -75,6 +75,7 @@ export SAVEHIST=$HISTSIZE
 
 export EDITOR=vim
 
+bindkey -e
 
 typeset -A key
 key[Up]="^[[A"
