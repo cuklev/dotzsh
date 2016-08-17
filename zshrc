@@ -35,6 +35,7 @@ setopt no_list_ambiguous
 setopt rmstarsilent
 setopt auto_param_slash
 setopt ksh_arrays
+setopt bash_rematch
 
 
 zstyle ':completion:*' menu select
