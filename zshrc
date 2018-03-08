@@ -151,3 +151,5 @@ alias unmerge='emerge --unmerge'
 alias pbg='ping google.bg'
 alias p88='ping 8.8.8.8'
 alias tmux='tmux -2'
+
+[[ $SUDO_USER ]] && TMOUT=300
