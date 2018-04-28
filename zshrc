@@ -11,7 +11,8 @@ compinit
 autoload -U select-word-style
 select-word-style bash
 
-PS1="%B%(!.%F{red}%m.%F{green}%n@%m) %F{blue}%1~ %F{blue}%(!.#.$)%f%b "
+PS1="%B%(!.%F{red}.%F{cyan}%n%f@%F{green})%m%f [%F{blue}%~%f]%(?.. [%F{red}%?%f])
+%F{blue}%(!.#.$)%f%b "
 PS2="%B %_ %F{blue}>%f%b "
 
 
