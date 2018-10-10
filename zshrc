@@ -21,7 +21,7 @@ PS2="%B %_ %F{blue}>%f%b "
 #setopt complete_aliases
 setopt complete_in_word
 setopt auto_cd
-setopt extended_glob
+#setopt extended_glob
 setopt long_list_jobs
 #setopt nonomatch
 setopt notify
